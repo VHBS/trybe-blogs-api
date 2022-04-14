@@ -1,5 +1,7 @@
+const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const validation = require('../validations');
+const jwtConfig = require('../jwt');
 
 const createUser = async ({ displayName, email, password, image }) => {
   const { error } = validation.userValidation.validate({ displayName, email, password });
@@ -12,7 +14,9 @@ const createUser = async ({ displayName, email, password, image }) => {
 
   const newUser = await User.create({ displayName, email, password, image });
 
-  return { code: 201, message: newUser };
+  const token = jwt.sign({ data: newUser }, process.env.JWT_SECRET, jwtConfig);
+
+  return { code: 201, message: { token } };
 };
 
 module.exports = { createUser };
