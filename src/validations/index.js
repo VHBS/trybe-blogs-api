@@ -16,4 +16,16 @@ const userValidation = Joi.object({
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
 });
 
-module.exports = { userValidation };
+const loginValidation = Joi.object({
+  password: Joi.string()
+    .min(6)
+    .rule({ message: '"password" length must be 6 characters long' })
+    .max(6)
+    .required(),
+
+  email: Joi.string()
+    .required()
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+});
+
+module.exports = { userValidation, loginValidation };
