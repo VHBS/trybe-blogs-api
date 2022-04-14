@@ -16,4 +16,10 @@ router.get('/', middleware.validateToken, async (req, res) => {
   return res.status(result.code).json(result.message);
 });
 
+router.get('/:id', middleware.validateToken, async (req, res) => {
+  const result = await temporaryServiceUser.getUserById(req.params);
+
+  return res.status(result.code).json(result.message);
+});
+
 module.exports = router;
