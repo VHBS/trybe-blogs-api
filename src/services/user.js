@@ -14,9 +14,15 @@ const createUser = async ({ displayName, email, password, image }) => {
 
   const newUser = await User.create({ displayName, email, password, image });
 
-  const token = jwt.sign({ data: newUser }, process.env.JWT_SECRET, jwtConfig);
+  const token = jwt.sign({ data: newUser.email }, process.env.JWT_SECRET, jwtConfig);
 
   return { code: 201, message: { token } };
 };
 
-module.exports = { createUser };
+const getAllUsers = async () => {
+  const allUsers = await User.findAll();
+
+  return { code: 200, message: allUsers };
+};
+
+module.exports = { createUser, getAllUsers };
