@@ -8,12 +8,13 @@ const createUser = async ({ displayName, email, password, image }) => {
 
   if (error) return { code: 400, message: { message: error.message } };
 
-  const userExists = await User.findOne({ where: { email } });
+  const [newUser, createdNewUser] = await User.findOrCreate({
+    where: { email },
+    defaults: { displayName, email, password, image },
+  });
 
-  if (userExists) return { code: 409, message: { message: 'User already registered' } };
-
-  const newUser = await User.create({ displayName, email, password, image });
-
+  if (!createdNewUser) return { code: 409, message: { message: 'User already registered' } };
+  
   const token = jwt.sign({ data: newUser.email }, process.env.JWT_SECRET, jwtConfig);
 
   return { code: 201, message: { token } };
