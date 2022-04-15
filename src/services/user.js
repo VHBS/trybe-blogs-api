@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { User } = require('../database/models');
 const validation = require('../validations');
 const jwtConfig = require('../jwt');
 
@@ -27,8 +27,6 @@ const getAllUsers = async () => {
 
 const getUserById = async ({ id }) => {
   const user = await User.findOne({ where: { id } });
-
-  console.log(user);
 
   if (!user) return { code: 404, message: { message: 'User does not exist' } };
 
