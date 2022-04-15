@@ -28,4 +28,9 @@ const loginValidation = Joi.object({
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
 });
 
-module.exports = { userValidation, loginValidation };
+const categoryValidation = Joi.object({
+  name: Joi.string()
+    .required(),
+});
+
+module.exports = { userValidation, loginValidation, categoryValidation };
