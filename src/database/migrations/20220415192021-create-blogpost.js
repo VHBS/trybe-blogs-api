@@ -24,12 +24,10 @@ module.exports = {
         reference: { model: 'User', key: 'id' }
       },
       published: {
-        // allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
       },
       updated: {
-        // allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
       }

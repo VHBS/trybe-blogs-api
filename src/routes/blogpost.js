@@ -11,10 +11,6 @@ router.post('/',
   blogPostMiddleware.validateBlogPost, 
   blogPostControllers.create);
 
-// router.get('/', loginMiddleware.validateToken, async (_req, res) => {
-//   const result = await temporaryServiceBlogPost.getAllBlogPosts();
-
-//   return res.status(result.code).json(result.message);
-// });
+router.get('/', loginMiddleware.validateToken, blogPostControllers.getAll);
 
 module.exports = router;

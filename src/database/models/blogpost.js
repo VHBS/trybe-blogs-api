@@ -1,12 +1,26 @@
-const BlogPost = (sequelize, DataTypes) => {
-  const BlogPostResult = sequelize.define('BlogPost', {
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    published: DataTypes.DATEONLY,
-    updated: DataTypes.DATEONLY,
-  }, {
+const { DataTypes } = require('sequelize');
+
+const Attributes = {
+  title: { 
+    allowNull: false,
+    type: DataTypes.STRING,
+  },
+  content: { 
+    allowNull: false,
+    type: DataTypes.STRING,
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    foreignKey: true,
+  },
+  published: DataTypes.DATEONLY,
+  updated: DataTypes.DATEONLY,
+};
+
+const BlogPost = (sequelize) => {
+  const BlogPostResult = sequelize.define('BlogPost',
+    Attributes, {
     timestamps: false,
-    tablename: 'Categories',
   });
 
   BlogPostResult.associate = (models) => {
