@@ -14,7 +14,7 @@ const createUser = async ({ displayName, email, password, image }) => {
   });
 
   if (!createdNewUser) return { code: 409, message: { message: 'User already registered' } };
-  
+
   const token = jwt.sign({ data: newUser.email }, process.env.JWT_SECRET, jwtConfig);
 
   return { code: 201, message: { token } };
@@ -34,4 +34,10 @@ const getUserById = async ({ id }) => {
   return { code: 200, message: user };
 };
 
-module.exports = { createUser, getAllUsers, getUserById };
+const getUserByEmail = async (email) => {
+  const user = await User.findOne({ where: { email } });
+
+  return user;
+};
+
+module.exports = { createUser, getAllUsers, getUserById, getUserByEmail };

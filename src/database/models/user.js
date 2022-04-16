@@ -9,11 +9,11 @@ const User = (sequelize, DataTypes) => {
     tablename: 'Users',
   });
 
-  // User.associate = (models) => {
-  //   User.hasOne(models.Profile, {
-  //     foreignKey: 'userId', as: 'profiles',
-  //   });
-  // };
+  UserResult.associate = (models) => {
+    UserResult.hasOne(models.BlogPost, {
+      foreignKey: 'userId', as: 'blogposts',
+    });
+  };
 
   return UserResult;
 };

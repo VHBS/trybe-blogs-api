@@ -33,4 +33,10 @@ const categoryValidation = Joi.object({
     .required(),
 });
 
-module.exports = { userValidation, loginValidation, categoryValidation };
+const blogPostValidation = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  categoryIds: Joi.array().required(),
+});
+
+module.exports = { userValidation, loginValidation, categoryValidation, blogPostValidation };

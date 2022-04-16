@@ -11,10 +11,16 @@ const createCategory = async ({ name }) => {
   return { code: 201, message: newCategory };
 };
 
+const getCategoryById = async (id) => {
+  const category = await Category.findByPk(id);
+
+  return category;
+};
+
 const getAllCategories = async () => {
   const allCategories = await Category.findAll();
 
   return { code: 200, message: allCategories };
 };
 
-module.exports = { createCategory, getAllCategories };
+module.exports = { createCategory, getAllCategories, getCategoryById };
