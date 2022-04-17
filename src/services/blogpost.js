@@ -64,10 +64,6 @@ const update = async ({ title, content }, { id }, userId) => {
 const deleteById = async ({ id }, userId) => {
   const blogById = await BlogPost.findOne({
     where: { id },
-    // include: [
-    //   { model: User, as: 'user', attributes: { exclude: ['password'] } },
-    //   { model: Category, as: 'categories', through: { attributes: [] } },
-    // ],
   });
 
   if (!blogById) return { code: 404, message: { message: 'Post does not exist' } };

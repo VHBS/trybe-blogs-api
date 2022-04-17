@@ -40,4 +40,10 @@ const getUserByEmail = async (email) => {
   return user;
 };
 
-module.exports = { createUser, getAllUsers, getUserById, getUserByEmail };
+const deleteMe = async (id) => {
+  await User.destroy({ where: { id } });
+
+  return { code: 204 };
+};
+
+module.exports = { createUser, getAllUsers, getUserById, getUserByEmail, deleteMe };
