@@ -11,6 +11,12 @@ router.post('/',
   blogPostMiddleware.validateBlogPost, 
   blogPostControllers.create);
 
-router.get('/', loginMiddleware.validateToken, blogPostControllers.getAll);
+router.get('/',
+  loginMiddleware.validateToken,
+  blogPostControllers.getAll);
+
+router.get('/:id',
+  loginMiddleware.validateToken,
+  blogPostControllers.getById);
 
 module.exports = router;

@@ -1,15 +1,22 @@
 const blogPostServices = require('../services/blogpost');
 
 const create = async (req, res) => {
-  const result = await blogPostServices.createBlogPost(req.body, req.userId);
+  const result = await blogPostServices.create(req.body, req.userId);
 
   return res.status(result.code).json(result.message);
 };
 
 const getAll = async (_req, res) => {
-  const result = await blogPostServices.getAllBlogPosts();
+  const result = await blogPostServices.getAll();
 
   return res.status(result.code).json(result.message);
 };
 
-module.exports = { create, getAll };
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const result = await blogPostServices.getById(id);
+
+  return res.status(result.code).json(result.message);
+};
+
+module.exports = { create, getAll, getById };
