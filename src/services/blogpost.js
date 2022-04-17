@@ -1,7 +1,13 @@
 const { BlogPost, User, Category, PostsCategories } = require('../database/models');
 
 const create = async ({ title, content, categoryIds }, userId) => {
-  const newBlogPost = await BlogPost.create({ title, content, categoryIds, userId });
+  const newBlogPost = await BlogPost.create({ 
+    title,
+    content,
+    categoryIds,
+    userId,
+    published: new Date(),
+    updated: new Date() });
 
   await Promise.all(categoryIds.map((id) => PostsCategories
     .create({ postId: newBlogPost.id, categoryId: id })));
@@ -34,4 +40,22 @@ const getById = async (id) => {
   return { code: 200, message: blogById };
 };
 
-module.exports = { create, getAll, getById };
+const update = async ({ title, content }, { id }, userId) => {
+  const blogById = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (Number(userId) !== Number(blogById.userId)) {
+    return { code: 401, message: { message: 'Unauthorized user' } };
+  }
+
+  await blogById.update({ title, content, updated: new Date() });
+
+  return { code: 200, message: blogById };
+};
+
+module.exports = { create, getAll, getById, update };

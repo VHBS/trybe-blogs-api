@@ -13,8 +13,8 @@ const Attributes = {
     type: DataTypes.INTEGER,
     foreignKey: true,
   },
-  published: DataTypes.DATEONLY,
-  updated: DataTypes.DATEONLY,
+  published: DataTypes.DATE,
+  updated: DataTypes.DATE,
 };
 
 const BlogPost = (sequelize) => {

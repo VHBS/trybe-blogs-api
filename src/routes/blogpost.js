@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/', 
   loginMiddleware.validateToken,
-  blogPostMiddleware.validateBlogPost, 
+  blogPostMiddleware.validateBlogPost,
   blogPostControllers.create);
 
 router.get('/',
@@ -18,5 +18,10 @@ router.get('/',
 router.get('/:id',
   loginMiddleware.validateToken,
   blogPostControllers.getById);
+
+router.put('/:id',
+  loginMiddleware.validateToken,
+  blogPostMiddleware.validateBlogPut,
+  blogPostControllers.update);
 
 module.exports = router;

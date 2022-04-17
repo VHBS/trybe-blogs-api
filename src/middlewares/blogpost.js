@@ -17,4 +17,16 @@ const validateBlogPost = async (req, res, next) => {
   next();
 };
 
-module.exports = { validateBlogPost };
+const validateBlogPut = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+
+  if (categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+
+  const { error } = validation.blogPutValidation.validate({ title, content });
+
+  if (error) return res.status(400).json({ message: error.message });
+
+  next();
+};
+
+module.exports = { validateBlogPost, validateBlogPut };
