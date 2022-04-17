@@ -25,4 +25,10 @@ const update = async (req, res) => {
   return res.status(result.code).json(result.message);
 };
 
-module.exports = { create, getAll, getById, update };
+const deleteById = async (req, res) => {
+  const result = await blogPostServices.deleteById(req.params, req.userId);
+
+  return res.status(result.code).json(result.message);
+};
+
+module.exports = { create, getAll, getById, update, deleteById };

@@ -24,4 +24,8 @@ router.put('/:id',
   blogPostMiddleware.validateBlogPut,
   blogPostControllers.update);
 
+router.delete('/:id',
+  loginMiddleware.validateToken,
+  blogPostControllers.deleteById);
+
 module.exports = router;
