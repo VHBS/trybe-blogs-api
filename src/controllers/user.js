@@ -1,26 +1,49 @@
 const userServices = require('../services/user');
 
+const SERVER_MESSAGE = { message: 'Ops, hoube um erro inesperado' };
+
 const create = async (req, res) => {
-  const result = await userServices.createUser(req.body);
-  return res.status(result.code).json(result.message);
+  try {
+    const result = await userServices.createUser(req.body);
+    
+    return res.status(result.code).json(result.message);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(SERVER_MESSAGE);
+  }
 };
 
 const getAll = async (req, res) => {
-  const result = await userServices.getAllUsers();
+  try {
+    const result = await userServices.getAllUsers();
 
-  return res.status(result.code).json(result.message);
+    return res.status(result.code).json(result.message);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(SERVER_MESSAGE);
+  }
 };
 
 const getById = async (req, res) => {
-  const result = await userServices.getUserById(req.params);
+  try {
+    const result = await userServices.getUserById(req.params);
 
-  return res.status(result.code).json(result.message);
+    return res.status(result.code).json(result.message);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(SERVER_MESSAGE);
+  }
 };
 
 const deleteMe = async (req, res) => {
-  const result = await userServices.deleteMe(req.userId);
+  try {
+    const result = await userServices.deleteMe(req.userId);
 
-  return res.status(result.code).json(result.message);
+    return res.status(result.code).json(result.message);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(SERVER_MESSAGE);
+  }
 };
 
 module.exports = { create, getAll, getById, deleteMe };

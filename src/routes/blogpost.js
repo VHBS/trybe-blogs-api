@@ -6,6 +6,10 @@ const blogPostControllers = require('../controllers/blogpost');
 
 const router = express.Router();
 
+router.get('/search',
+  loginMiddleware.validateToken,
+  blogPostControllers.search);
+
 router.post('/', 
   loginMiddleware.validateToken,
   blogPostMiddleware.validateBlogPost,

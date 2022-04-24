@@ -1,9 +1,16 @@
 const longinService = require('../services/login');
 
-const login = async (req, res) => {
-  const result = await longinService.validate(req.body);
+const SERVER_MESSAGE = { message: 'Ops, hoube um erro inesperado' };
 
-  return res.status(result.code).json(result.message);
+const login = async (req, res) => {
+  try {
+    const result = await longinService.validate(req.body);
+
+    return res.status(result.code).json(result.message);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(SERVER_MESSAGE);
+  }
 };
 
 module.exports = { login };
